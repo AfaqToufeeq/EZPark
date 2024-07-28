@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1003667673218",
+    "project_id": "ezparking-76e5e",
+    "storage_bucket": "ezparking-76e5e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003667673218:android:f342d6a41e1a046ac3a49b",
+        "android_client_info": {
+          "package_name": "com.admin.ezpark"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwVJ0SbUxBn84eW6FqF6nfHnXN7ottH-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
