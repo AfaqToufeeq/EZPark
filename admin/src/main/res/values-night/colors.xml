@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primary Color -->
-    <color name="colorPrimary">#000066</color>
-    <color name="colorPrimaryVariant">#000066</color>
+    <color name="colorPrimary">#1E90FF</color>
+    <color name="colorPrimaryVariant">#1C86EE</color>
     <color name="colorOnPrimary">#FFFFFF</color>
 
     <!-- Secondary Color -->
-    <color name="colorSecondary">#FFBF00</color>
-    <color name="colorSecondaryVariant">#FFBF00</color>
+    <color name="colorSecondary">#FFA500</color>
+    <color name="colorSecondaryVariant">#FF8C00</color>
     <color name="colorOnSecondary">#FFFFFF</color>
 
     <!-- Background Color -->
@@ -19,9 +19,16 @@
     <color name="colorOnSurface">#E0E0E0</color>
 
     <!-- Error Color -->
-    <color name="colorError">#FF6F61</color>
+    <color name="colorError">#CF6679</color>
     <color name="colorOnError">#FFFFFF</color>
 
+    <color name="logout">#d9d9d9</color>
+
     <!-- Accent Color -->
-    <color name="colorAccent">#32CD32</color>
+    <color name="colorAccent">#FFA500</color>
+    <color name="colorAccentGreen">#32CD32</color>
+
+    <!-- Dialog Background Color for Dark Theme -->
+    <color name="dialogBackgroundColor">#2C2C2C</color>
+    <color name="colorOverlay">#33000000</color>
 </resources>

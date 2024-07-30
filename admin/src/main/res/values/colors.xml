@@ -2,27 +2,40 @@
 <resources>
 
     <!-- Primary Color -->
-    <color name="colorPrimary">#000066</color>
-    <color name="colorPrimaryVariant">#000066</color>
+    <color name="colorPrimary">#1E90FF</color>
+    <color name="colorPrimaryVariant">#1C86EE</color>
     <color name="colorOnPrimary">#FFFFFF</color>
 
     <!-- Secondary Color -->
-    <color name="colorSecondary">#FFBF00</color>
-    <color name="colorSecondaryVariant">#FFBF00</color>
+    <color name="colorSecondary">#FFA500</color>
+    <color name="colorSecondaryVariant">#FF8C00</color>
     <color name="colorOnSecondary">#FFFFFF</color>
 
     <!-- Background Color -->
-    <color name="backgroundColor">#F5F5F5</color>
+    <color name="backgroundColor">#FFFFFF</color>
     <color name="colorOnBackground">#333333</color>
 
     <!-- Surface Color -->
-    <color name="surfaceColor">#FFFFFF</color>
+    <color name="surfaceColor">#F5F5F5</color>
     <color name="colorOnSurface">#333333</color>
 
     <!-- Error Color -->
-    <color name="colorError">#FF0000</color>
+    <color name="colorError">#B00020</color>
     <color name="colorOnError">#FFFFFF</color>
 
     <!-- Accent Color -->
-    <color name="colorAccent">#32CD32</color>
+    <color name="colorAccent">#FFA500</color>
+    <color name="colorAccentGreen">#32CD32</color>
+
+    <!-- Dialog Background Color for Light Theme -->
+    <color name="dialogBackgroundColor">#FFFFFF</color>
+
+    <color name="logout">#686666</color>
+
+    <!-- General Colors -->
+    <color name="green">#BF4CAF50</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="colorOverlay">#33000000</color>
+    <color name="transparent">#00000000</color>
 </resources>

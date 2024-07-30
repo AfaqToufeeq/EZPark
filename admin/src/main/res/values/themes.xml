@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.EZPark" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="dialogCornerRadius">@color/dialogBackgroundColor</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -24,10 +24,33 @@
 
     <style name="Theme.EZPark" parent="Base.Theme.EZPark" />
 
+
+    <!-- Splash Screen Theme -->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/colorPrimary</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
         <item name="postSplashScreenTheme">@style/Theme.EZPark</item>
     </style>
+
+    <!-- Custom style for the rounded outlined TextInputLayout -->
+    <style name="CustomOutlinedTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeColor">@drawable/custom_box_stroke</item>
+        <item name="boxCornerRadiusTopStart">18dp</item>
+        <item name="boxCornerRadiusTopEnd">18dp</item>
+        <item name="boxCornerRadiusBottomEnd">18dp</item>
+        <item name="boxCornerRadiusBottomStart">18dp</item>
+        <item name="cursorColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
+        <item name="hintTextColor">@android:color/white</item>
+    </style>
+
+    <!-- Custom style for the TextInputEditText -->
+    <style name="CustomTextInputEditText">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="hintTextColor">@android:color/white</item>
+        <item name="android:backgroundTint">@android:color/transparent</item> <!-- Transparent background -->
+    </style>
+
 </resources>

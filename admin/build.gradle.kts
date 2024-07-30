@@ -46,6 +46,11 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.firestore)
     dependencies {
 
         // Core Android dependencies
@@ -75,8 +80,13 @@ dependencies {
         implementation(libs.hilt.android)
         kapt(libs.hilt.android.compiler)
 
+        //NavGraphs
+        implementation(libs.androidx.navigation.fragment.ktx)
+        implementation(libs.androidx.navigation.ui.ktx)
+
         // Third party libraries
         implementation (libs.glide)
+
     }
 }
 

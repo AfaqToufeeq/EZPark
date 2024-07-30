@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_close"
+        android:icon="@drawable/drawer_icon"
+        android:iconTint="@color/colorPrimaryVariant"
+        android:title="" />
+
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/dashboard_icon"
+        android:title="Home Screen" />
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/settings_icon"
+        android:title="@string/settings" />
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/notifcation_icon"
+        android:title="@string/notifications" />
+    </group>
+
+    <item
+        android:id="@+id/navigation_logout"
+        android:icon="@drawable/logout_icon"
+        android:title="Logout"
+        app:showAsAction="never" />
+</menu>
