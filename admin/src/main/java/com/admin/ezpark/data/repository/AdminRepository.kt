@@ -1,4 +1,4 @@
-package com.admin.ezpark.data.local.repository
+package com.admin.ezpark.data.repository
 
 import com.admin.ezpark.data.remote.firebase.FirestoreDataSource
 import com.admin.ezpark.enums.LogLevel

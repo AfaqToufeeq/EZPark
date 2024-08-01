@@ -86,6 +86,7 @@ dependencies {
 
         // Third party libraries
         implementation (libs.glide)
+        implementation (libs.circleimageview)
 
     }
 }

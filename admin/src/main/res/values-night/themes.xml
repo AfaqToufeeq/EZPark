@@ -24,7 +24,7 @@
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/colorPrimary</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
-        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="windowSplashScreenAnimationDuration">2000</item>
         <item name="postSplashScreenTheme">@style/Theme.EZPark</item>
     </style>
 
@@ -46,6 +46,15 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="hintTextColor">@android:color/white</item>
         <item name="android:backgroundTint">@android:color/transparent</item> <!-- Transparent background -->
+    </style>
+
+
+    <style name="CardView.RoundedBottomCorners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">@dimen/_16sdp</item>
+        <item name="cornerSizeBottomLeft">@dimen/_16sdp</item>
     </style>
 
 </resources>

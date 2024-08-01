@@ -9,5 +9,18 @@
         android:id="@+id/homeFragment"
         android:name="com.admin.ezpark.ui.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_parkingOwnerInfoFragment"
+            app:destination="@id/parkingOwnerInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/parkingOwnerInfoFragment"
+        android:name="com.admin.ezpark.ui.fragments.ParkingOwnerInfoFragment"
+        android:label="fragment_parking_owner_info"
+        tools:layout="@layout/fragment_parking_owner_info" >
+        <action
+            android:id="@+id/action_parkingOwnerInfoFragment_to_homeFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
 </navigation>

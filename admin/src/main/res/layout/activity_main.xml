@@ -11,27 +11,74 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/Theme.EZPark"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/toolbar_CV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardBackgroundColor="@color/home_status_bar"
+            app:strokeColor="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline4"
+            app:shapeAppearanceOverlay="@style/CardView.RoundedBottomCorners">
 
-            <ImageView
-                android:id="@+id/app_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/logo"
-                app:tint="@color/colorPrimary" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        </com.google.android.material.appbar.MaterialToolbar>
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:elevation="@dimen/_4sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/title_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:elevation="@dimen/_4sdp"
+                    android:fontFamily="@font/baloo"
+                    android:letterSpacing="0.04"
+                    android:padding="@dimen/_6sdp"
+                    android:text="@string/welcome_to_admin_dashboard"
+                    android:textColor="@color/backgroundColor"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/toolbar"
+                    app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/background_cover"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/firstCard_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="60dp"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar_CV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_CV"
+            tools:listitem="@layout/item_dashboard_card" />
 
         <fragment
             android:id="@+id/nav_host_fragment"
@@ -40,10 +87,17 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_graph"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/firstCard_RecyclerView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.27" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -57,5 +111,7 @@
             android:id="@+id/nav_drawer_content"
             layout="@layout/nav_drawer_content"/>
 
-</com.google.android.material.navigation.NavigationView>
-    </androidx.drawerlayout.widget.DrawerLayout>
+    </com.google.android.material.navigation.NavigationView>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

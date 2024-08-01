@@ -6,11 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.admin.ezpark.R
+import com.admin.ezpark.data.models.DashboardCard
 import com.admin.ezpark.databinding.FragmentHomeBinding
+import com.admin.ezpark.enums.DashboardFields
+import com.admin.ezpark.sealedclass.DashboardNavigationAction
 import com.admin.ezpark.ui.adapters.DashboardAdapter
 import com.admin.ezpark.ui.viewmodels.DashboardViewModel
 import com.admin.ezpark.utils.Utils.showToast
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -61,15 +67,28 @@ class HomeFragment : Fragment() {
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireActivity(), 1)
             dashboardAdapter = DashboardAdapter {  dashboardCard ->
-                showToast(requireActivity(), "Clicked: $dashboardCard")
+                navigationHandling(dashboardCard)
             }
             adapter = dashboardAdapter
         }
 
     }
 
+    private fun navigationHandling(dashboardCard: DashboardCard) {
+        val action = when (dashboardCard.title) {
+            DashboardFields.AddOwner -> DashboardNavigationAction.NavigateToAddOwner
+            DashboardFields.ViewOwner -> DashboardNavigationAction.NavigateToViewOwner
+            else -> {}
+        }
+
+        when (action) {
+            DashboardNavigationAction.NavigateToAddOwner -> findNavController().navigate(R.id.action_homeFragment_to_parkingOwnerInfoFragment)
+            else -> {}
+        }
+    }
+
     private fun setObserver() {
-        viewModel.dashboardCards.observe(viewLifecycleOwner) { cards ->
+        viewModel.dashboardCardsType2.observe(viewLifecycleOwner) { cards ->
             dashboardAdapter.submitList(cards)
         }
     }

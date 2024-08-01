@@ -38,4 +38,6 @@
     <color name="black">#000000</color>
     <color name="colorOverlay">#33000000</color>
     <color name="transparent">#00000000</color>
+    <color name="colorPrimaryTrans">#CC1E90FF</color>
+    <color name="home_status_bar">#188CE7</color>
 </resources>
