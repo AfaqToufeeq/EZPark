@@ -4,7 +4,6 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -18,7 +17,7 @@ import com.admin.ezpark.ui.adapters.DashboardAdapter
 import com.admin.ezpark.ui.viewmodels.DashboardViewModel
 import com.admin.ezpark.utils.IS_DARK_MODE
 import com.admin.ezpark.utils.InsetsUtil
-import com.admin.ezpark.utils.Utils
+import com.admin.ezpark.utils.Utils.mode
 import com.admin.ezpark.utils.Utils.setStatusBarColor
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var dashboardAdapter: DashboardAdapter
+    private lateinit var parentDashboardAdapter: DashboardAdapter
     private val viewModel: DashboardViewModel by viewModels()
 
     @Inject
@@ -46,12 +45,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpViews() {
-
+        setSupportActionBar(binding.toolbar)
         applyInsets()
         setupCoverPhoto()
         setUpRecyclerView()
         setObservers()
-        initToolbar()
         initDrawer()
         setupNavController()
         setupClickListeners()
@@ -59,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setObservers() {
         viewModel.dashboardCardsType1.observe(this) { cards ->
-            dashboardAdapter.submitList(cards)
+            parentDashboardAdapter.submitList(cards.dashboardCompItems.first().second)
         }
     }
 
@@ -67,17 +65,13 @@ class MainActivity : AppCompatActivity() {
         with(binding) {
             firstCardRecyclerView.apply {
                 layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-                dashboardAdapter = DashboardAdapter { dashboardCard ->
-//                    navigationHandling(dashboardCard)
-                }
-                adapter = dashboardAdapter
+                parentDashboardAdapter = DashboardAdapter { }
+                adapter = parentDashboardAdapter
             }
         }
     }
 
-    private fun applyInsets() {
-        InsetsUtil.applyInsetsWithInitialPadding(binding.root)
-    }
+    private fun applyInsets() = InsetsUtil.applyInsetsWithInitialPadding(binding.root)
 
     private fun setupCoverPhoto() {
         with(binding.imageView) {
@@ -89,12 +83,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initToolbar() {
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = ""
-        binding.toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.drawer_icon)
-    }
-
     private fun initDrawer() {
         drawerLayout = binding.drawerLayout
         binding.navDrawerContent.themeToggleSwitch.isChecked = sharedPreferencesManager.getBoolean(IS_DARK_MODE)
@@ -104,33 +92,36 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavController() {
         val navController = findNavController(R.id.nav_host_fragment)
         setupActionBarWithNavController(navController, drawerLayout)
-        supportActionBar?.title = "" // Remove default title
-        binding.toolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.drawer_icon)
+        supportActionBar?.title = ""
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.drawer_icon)
     }
 
+
     private fun setupClickListeners() {
-        binding.toolbar.setNavigationOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
+        with(binding) {
+            toolbar.setNavigationOnClickListener {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
 
-        binding.navDrawerContent.btnClose.setOnClickListener {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        }
+            navDrawerContent.btnClose.setOnClickListener {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
 
-        binding.navDrawerContent.themeToggleSwitch.setOnCheckedChangeListener { _, isChecked ->
-            applyTheme(isChecked)
-            sharedPreferencesManager.saveBoolean(IS_DARK_MODE, isChecked)
+            navDrawerContent.themeToggleSwitch.setOnCheckedChangeListener { _, isChecked ->
+                applyTheme(isChecked)
+                sharedPreferencesManager.saveBoolean(IS_DARK_MODE, isChecked)
+            }
         }
     }
 
     private fun applyTheme(isDarkMode: Boolean) {
-        AppCompatDelegate.setDefaultNightMode(
-            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-        )
+        mode(isDarkMode)
         // Delay to ensure UI updates are processed smoothly
         binding.navDrawerContent.themeToggleSwitch.postDelayed({
-            binding.navDrawerContent.themeToggleSwitch.isChecked = isDarkMode
-        }, 200)
+            _binding?.let {
+                it.navDrawerContent.themeToggleSwitch.isChecked = isDarkMode
+            }
+        }, 300)
     }
 
     private fun adjustDrawerWidth() {
@@ -141,13 +132,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
+        binding.navDrawerContent.themeToggleSwitch.removeCallbacks(null)
         _binding = null
     }
 }

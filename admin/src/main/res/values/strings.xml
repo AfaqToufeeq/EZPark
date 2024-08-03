@@ -30,4 +30,7 @@
     <string name="personal_details">Personal Details</string>
     <string name="welcome_to_admin_dashboard">Welcome to \nAdmin Dashboard</string>
     <string name="background_cover">Background Cover</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="add_owner">Add Owner</string>
+
 </resources>

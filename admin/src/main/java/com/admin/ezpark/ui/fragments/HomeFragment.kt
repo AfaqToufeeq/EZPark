@@ -8,15 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.admin.ezpark.R
 import com.admin.ezpark.data.models.DashboardCard
 import com.admin.ezpark.databinding.FragmentHomeBinding
 import com.admin.ezpark.enums.DashboardFields
 import com.admin.ezpark.sealedclass.DashboardNavigationAction
 import com.admin.ezpark.ui.adapters.DashboardAdapter
+import com.admin.ezpark.ui.adapters.ParentDashboardAdapter
 import com.admin.ezpark.ui.viewmodels.DashboardViewModel
-import com.admin.ezpark.utils.Utils.showToast
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -30,12 +30,14 @@ private const val ARG_PARAM2 = "param2"
  */
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
+    override val shouldUpdateConstraints = false
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var dashboardAdapter: DashboardAdapter
+    private lateinit var parentDashboardAdapter: ParentDashboardAdapter
+    private lateinit var dashboard: DashboardAdapter
     private val viewModel: DashboardViewModel by viewModels()
-
 
     private var param1: String? = null
     private var param2: String? = null
@@ -66,10 +68,19 @@ class HomeFragment : Fragment() {
     private fun setRecyclerView() {
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireActivity(), 1)
-            dashboardAdapter = DashboardAdapter {  dashboardCard ->
+            parentDashboardAdapter = ParentDashboardAdapter {  dashboardCard ->
                 navigationHandling(dashboardCard)
             }
-            adapter = dashboardAdapter
+            adapter = parentDashboardAdapter
+        }
+
+
+        binding.recyclerViewParking.apply {
+            layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+            dashboard = DashboardAdapter {  dashboardCard ->
+//                navigationHandling(dashboardCard)
+            }
+            adapter = dashboard
         }
 
     }
@@ -89,7 +100,11 @@ class HomeFragment : Fragment() {
 
     private fun setObserver() {
         viewModel.dashboardCardsType2.observe(viewLifecycleOwner) { cards ->
-            dashboardAdapter.submitList(cards)
+            parentDashboardAdapter.submitList(cards.dashboardCompItems)
+        }
+
+        viewModel.dashboardCardsType3.observe(viewLifecycleOwner) { cards ->
+            dashboard.submitList(cards.dashboardCompItems.first().second)
         }
     }
 

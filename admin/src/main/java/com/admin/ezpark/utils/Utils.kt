@@ -18,6 +18,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.admin.ezpark.R
 import com.admin.ezpark.enums.LogLevel
 import com.bumptech.glide.Glide
@@ -41,6 +42,13 @@ object Utils {
     fun setStatusBarColor(activity: AppCompatActivity, colorResId: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity.window.statusBarColor = activity.resources.getColor(colorResId, activity.theme)
+        }
+    }
+
+    fun mode(sharePref: Boolean) {
+        when (sharePref) {
+            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 

@@ -28,7 +28,7 @@
     <color name="colorAccentGreen">#32CD32</color>
 
     <!-- Dialog Background Color for Light Theme -->
-    <color name="dialogBackgroundColor">#FFFFFF</color>
+    <color name="cardBackgroundColor">#FDFDFD</color>
 
     <color name="logout">#686666</color>
 

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/backgroundColor"
-    android:elevation="@dimen/_1sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -12,7 +11,9 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/back_arrow"
         android:padding="@dimen/_12sdp"
-        android:layout_margin="@dimen/_12sdp"
+
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -1,11 +1,10 @@
 package com.admin.ezpark.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.admin.ezpark.R
+import androidx.fragment.app.Fragment
 import com.admin.ezpark.databinding.FragmentParkingLotInfoBinding
 
 
@@ -17,7 +16,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ParkingLotInfoFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ParkingLotInfoFragment : Fragment() {
+class ParkingLotInfoFragment : BaseFragment() {
     private var _binding: FragmentParkingLotInfoBinding? = null
     private val binding get() = _binding!!
     private var param1: String? = null

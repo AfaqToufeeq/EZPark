@@ -46,49 +46,42 @@ android {
 
 dependencies {
 
+    // Core Android dependencies
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.core.splashscreen)
+
+    // Testing dependencies
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    // Firebase dependencies
+    implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
-    dependencies {
+    implementation(libs.firebase.storage)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 
-        // Core Android dependencies
-        implementation(libs.androidx.core.ktx)
-        implementation(libs.androidx.appcompat)
-        implementation(libs.material)
-        implementation(libs.androidx.activity)
-        implementation(libs.androidx.constraintlayout)
-        implementation(libs.androidx.core.splashscreen)
+    // Architecture Components
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 
-        // Testing dependencies
-        testImplementation(libs.junit)
-        androidTestImplementation(libs.androidx.junit)
-        androidTestImplementation(libs.androidx.espresso.core)
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
-        // Firebase dependencies
-        implementation(libs.firebase.auth)
-        implementation(libs.firebase.storage)
-        implementation(libs.firebase.crashlytics)
-        implementation(libs.firebase.analytics)
+    //Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
-        // Architecture Components
-        implementation(libs.androidx.lifecycle.viewmodel.ktx)
-        implementation(libs.androidx.lifecycle.livedata.ktx)
+    // Third party libraries
+    implementation (libs.glide)
+    implementation (libs.circleimageview)
 
-        // Hilt
-        implementation(libs.hilt.android)
-        kapt(libs.hilt.android.compiler)
-
-        //NavGraphs
-        implementation(libs.androidx.navigation.fragment.ktx)
-        implementation(libs.androidx.navigation.ui.ktx)
-
-        // Third party libraries
-        implementation (libs.glide)
-        implementation (libs.circleimageview)
-
-    }
 }
 
 kapt {

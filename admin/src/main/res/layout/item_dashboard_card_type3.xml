@@ -1,0 +1,67 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="15dp"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/transparent"
+    app:cardBackgroundColor="@color/cardBackgroundColor">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="6dp"
+        android:paddingHorizontal="6dp"
+        android:paddingBottom="10dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/parking_image"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/parking_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundedCornerImage"
+            tools:src="@drawable/garage_sample" />
+
+        <TextView
+            android:id="@+id/parking_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:text="Chase up Parking Station"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/parking_image" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/parking_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:drawableStart="@drawable/time_ic"
+            android:drawablePadding="5dp"
+            app:drawableTint="@color/colorPrimaryVariant"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:fontFamily="@font/inter"
+            android:text="24 Hours"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/parking_image"  />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

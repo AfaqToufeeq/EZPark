@@ -1,18 +1,18 @@
 package com.admin.ezpark.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.admin.ezpark.R
 import com.admin.ezpark.databinding.FragmentParkingOwnerInfoBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class ParkingOwnerInfoFragment : Fragment() {
+@AndroidEntryPoint
+class ParkingOwnerInfoFragment : BaseFragment() {
     private var _binding: FragmentParkingOwnerInfoBinding? = null
     private val binding get() = _binding!!
 

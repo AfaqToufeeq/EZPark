@@ -29,6 +29,6 @@
     <color name="colorAccentGreen">#32CD32</color>
 
     <!-- Dialog Background Color for Dark Theme -->
-    <color name="dialogBackgroundColor">#2C2C2C</color>
+    <color name="cardBackgroundColor">#1E1E1E</color>
     <color name="colorOverlay">#33000000</color>
 </resources>
