@@ -14,7 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SelectBottomSheet : BottomSheetDialogFragment() {
 
-    var callback : ((BottomSheetSelection) -> Unit?)? = null
+    var callBack : ((BottomSheetSelection) -> Unit?)? = null
 
     private val binding: SelectBottomSheetLayoutBinding by lazy {
         SelectBottomSheetLayoutBinding.inflate(
@@ -27,7 +27,6 @@ class SelectBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         events()
         return binding.root
     }
@@ -35,11 +34,11 @@ class SelectBottomSheet : BottomSheetDialogFragment() {
     private fun events(){
         binding.apply {
             onCameraCV.setOnClickListener {
-                callback!!.invoke(BottomSheetSelection.SELECT_CAMERA)
+                callBack!!.invoke(BottomSheetSelection.SELECT_CAMERA)
                 dialog!!.dismiss()
             }
             onGalleryCV.setOnClickListener {
-                callback!!.invoke(BottomSheetSelection.SELECT_GALLERY)
+                callBack!!.invoke(BottomSheetSelection.SELECT_GALLERY)
                 dialog!!.dismiss()
             }
             dismiss.setOnClickListener {

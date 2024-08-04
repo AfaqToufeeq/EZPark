@@ -33,4 +33,10 @@
     <string name="profile_image">Profile Image</string>
     <string name="add_owner">Add Owner</string>
 
+    <string name="error_required_field">This field is required</string>
+    <string name="error_required_image">Image is required, select image from gallery</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_invalid_phone">Invalid phone number</string>
+    <string name="error_select_gender">Please select a gender</string>
+
 </resources>

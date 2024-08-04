@@ -112,6 +112,14 @@ object Utils {
         return UUID.randomUUID().toString()
     }
 
+    fun String.isValidEmail(): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+    }
+
+    fun String.isValidPhone(): Boolean {
+        return android.util.Patterns.PHONE.matcher(this).matches()
+    }
+
     fun navigateToActivity(context: Context, targetActivityClass: Class<*>, extras: Bundle? = null, finishCurrentActivity: Boolean = false) {
         val intent = Intent(context, targetActivityClass)
         extras?.let { intent.putExtras(it) }
