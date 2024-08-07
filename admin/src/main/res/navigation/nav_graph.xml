@@ -34,7 +34,6 @@
     <fragment
         android:id="@+id/viewOwnerParkingFragment"
         android:name="com.admin.ezpark.ui.fragments.ViewOwnerParkingFragment"
-        android:label="fragment_view_owner_parking"
         tools:layout="@layout/fragment_view_owner_parking" >
         <action
             android:id="@+id/action_viewOwnerParkingFragment_to_homeFragment"

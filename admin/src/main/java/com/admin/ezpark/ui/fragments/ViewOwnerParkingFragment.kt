@@ -55,7 +55,16 @@ class ViewOwnerParkingFragment : BaseFragment() {
         setListeners()
         setRecyclerView()
         setObservers()
+        styleSearchView()
     }
+
+    private fun styleSearchView() {
+        val searchView = binding.searchView
+        // Remove the underline
+        val searchPlate = searchView.findViewById<View>(androidx.appcompat.R.id.search_plate)
+        searchPlate?.setBackgroundColor(android.graphics.Color.TRANSPARENT)
+    }
+
 
     private fun initViews() {
         binding.shimmerViewContainer.startShimmer()

@@ -13,7 +13,6 @@ import com.admin.ezpark.R
 import com.admin.ezpark.data.models.DashboardCard
 import com.admin.ezpark.databinding.FragmentHomeBinding
 import com.admin.ezpark.enums.DashboardFields
-import com.admin.ezpark.sealedclass.DashboardNavigationAction
 import com.admin.ezpark.ui.adapters.DashboardAdapter
 import com.admin.ezpark.ui.adapters.ParentDashboardAdapter
 import com.admin.ezpark.ui.viewmodels.DashboardViewModel
@@ -77,7 +76,7 @@ class HomeFragment : BaseFragment() {
 
         binding.recyclerViewParking.apply {
             layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-            dashboard = DashboardAdapter {  dashboardCard ->
+            dashboard = DashboardAdapter {  _ ->
 //                navigationHandling(dashboardCard)
             }
             adapter = dashboard
@@ -86,16 +85,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun navigationHandling(dashboardCard: DashboardCard) {
-        val action = when (dashboardCard.title) {
-            DashboardFields.AddOwner -> DashboardNavigationAction.NavigateToAddOwner
-            DashboardFields.ViewOwner -> DashboardNavigationAction.NavigateToViewOwner
-            else -> {}
-        }
-
-        when (action) {
-            DashboardNavigationAction.NavigateToAddOwner -> findNavController().navigate(R.id.action_homeFragment_to_parkingOwnerInfoFragment)
-            DashboardNavigationAction.NavigateToViewOwner -> findNavController().navigate(R.id.action_homeFragment_to_viewOwnerParkingFragment)
-            else -> {}
+        when (dashboardCard.title) {
+            DashboardFields.AddOwner -> findNavController().navigate(R.id.action_homeFragment_to_parkingOwnerInfoFragment)
+            DashboardFields.ViewOwner -> findNavController().navigate(R.id.action_homeFragment_to_viewOwnerParkingFragment)
+            else -> {} // Handle other DashboardFields if needed
         }
     }
 

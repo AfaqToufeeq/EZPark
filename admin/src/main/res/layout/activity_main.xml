@@ -72,9 +72,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/firstCard_RecyclerView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
+            android:layout_marginHorizontal="60dp"
+            tools:listitem="@layout/item_dashboard_card"
             app:layout_constraintBottom_toBottomOf="@id/toolbar_CV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
