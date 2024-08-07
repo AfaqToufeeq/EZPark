@@ -1,29 +1,26 @@
 package com.admin.ezpark.ui.fragments
 
-import android.Manifest
-import android.content.pm.PackageManager
+import android.app.DatePickerDialog
+import android.app.Dialog
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.RadioButton
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.admin.ezpark.R
 import com.admin.ezpark.data.models.OwnerModel
+import com.admin.ezpark.data.remote.firebase.FirebaseStorageManager
 import com.admin.ezpark.databinding.FragmentParkingOwnerInfoBinding
 import com.admin.ezpark.enums.BottomSheetSelection
 import com.admin.ezpark.enums.Gender
-import com.admin.ezpark.enums.LogLevel
-import com.admin.ezpark.ui.viewmodels.AdminViewModel
-import com.admin.ezpark.utils.REQUEST_PERMISSION_CAMERA
-import com.admin.ezpark.utils.REQUEST_PERMISSION_STORAGE
+import com.admin.ezpark.ui.viewmodels.ParkingLotViewModel
+import com.admin.ezpark.utils.CoroutineDispatcherProvider
+import com.admin.ezpark.utils.ImagePicker
 import com.admin.ezpark.utils.SelectBottomSheet
 import com.admin.ezpark.utils.Utils
 import com.admin.ezpark.utils.Utils.isValidEmail
@@ -31,17 +28,21 @@ import com.admin.ezpark.utils.Utils.isValidPhone
 import com.admin.ezpark.utils.Utils.showToast
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ParkingOwnerInfoFragment : BaseFragment() {
 
     private var _binding: FragmentParkingOwnerInfoBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AdminViewModel by viewModels()
+    private val viewModel: ParkingLotViewModel by viewModels()
+    @Inject lateinit var dispatcherProvider: CoroutineDispatcherProvider
+    @Inject lateinit var firebaseStorageManager: FirebaseStorageManager
+    private lateinit var loader: Dialog
 
     private var imageUri: Uri? = null
 
@@ -52,12 +53,15 @@ class ParkingOwnerInfoFragment : BaseFragment() {
         }
     }
 
-    private val takePictureContract = registerForActivityResult(ActivityResultContracts.TakePicture()) {
-        it?.let {
-            binding.profileImage.setImageURI(null)
-            binding.profileImage.setImageURI(imageUri)
+    private val takePictureContract =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                binding.profileImage.setImageURI(null)
+                binding.profileImage.setImageURI(imageUri)
+            } else {
+                showToast(requireActivity(), "Failed to capture image")
+            }
         }
-    }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -67,7 +71,26 @@ class ParkingOwnerInfoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
         setupListeners()
+        setObservers()
+    }
+
+    private fun initViews() {
+        loader = Utils.progressDialog(requireActivity())
+    }
+
+    private fun setObservers() {
+        viewModel.result.observe(viewLifecycleOwner){
+            if (it) {
+                showToast(requireActivity(), "Owner is added")
+                navigateBack()
+            } else {
+                showToast(requireActivity(), "Failed to add owner")
+            }
+
+            if (loader.isShowing) loader.dismiss()
+        }
     }
 
     private fun setupListeners() {
@@ -75,62 +98,57 @@ class ParkingOwnerInfoFragment : BaseFragment() {
             toolbar.backIV.setOnClickListener { navigateBack() }
             btnAddOwner.setOnClickListener { validateAndSubmitOwnerData() }
             uploadImageIV.setOnClickListener { showImageSelectionBottomSheet() }
+            dobEditText.setOnClickListener { showDatePicker() }
         }
+    }
+
+
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+        val datePicker = DatePickerDialog(
+            requireContext(),
+            { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+                val selectedDate = Calendar.getInstance().apply {
+                    set(year, month, dayOfMonth)
+                }.time
+                updateDateOfBirth(selectedDate)
+            },
+            calendar[Calendar.YEAR],
+            calendar[Calendar.MONTH],
+            calendar[Calendar.DAY_OF_MONTH]
+        )
+        datePicker.show()
+    }
+
+    private fun updateDateOfBirth(date: Date) {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        binding.dobInputLayout.editText?.setText(dateFormat.format(date))
     }
 
     private fun showImageSelectionBottomSheet() {
         SelectBottomSheet().apply {
             callBack = { selection ->
                 when (selection) {
-                    BottomSheetSelection.SELECT_CAMERA -> checkPermissionsAndPickImage()
-                    BottomSheetSelection.SELECT_GALLERY -> selectGalleryImage()
+                    BottomSheetSelection.SELECT_CAMERA -> {
+                        ImagePicker.checkPermissionsAndPickImage(this@ParkingOwnerInfoFragment, takePictureContract, dispatcherProvider) { imgUri ->
+                            imageUri = imgUri
+                        }
+                    }
+                    BottomSheetSelection.SELECT_GALLERY -> {
+                        ImagePicker.selectGalleryImage(pickImageContract)
+                    }
                 }
             }
         }.show(childFragmentManager, "SelectBottomSheet")
     }
 
-    private fun checkPermissionsAndPickImage() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Request camera permission if it is not granted
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.CAMERA),
-                REQUEST_PERMISSION_CAMERA
-            )
-        } else {
-            // Permission already granted, start the camera activity
-            launchCamera()
-        }
-    }
-
-    private fun launchCamera() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val deferredUri = async { createImageUri()}
-                imageUri = deferredUri.await()
-                takePictureContract.launch(imageUri)
-            } catch (e: Exception) {
-               Utils.log(LogLevel.ERROR, "Error creating image URI $e")
-                showToast(requireActivity(),"Failed to open camera")
-            }
-        }
-    }
-
-    private fun createImageUri(): Uri? {
-        val image = File(requireActivity().applicationContext.filesDir, "camera_photo.png")
-        return FileProvider.getUriForFile(requireActivity().applicationContext, "com.admin.ezpark.FileProvider", image)
-    }
-
-    private fun selectGalleryImage() {
-        pickImageContract.launch("image/*")
-    }
 
     private fun validateAndSubmitOwnerData() {
+        if (!loader.isShowing) loader.show()
+
         if (validateForm()) {
             val ownerData = collectOwnerData()
-            // Handle the owner data (e.g., save to database, navigate to another screen)
+            viewModel.saveOwnerInfo(ownerData)
         }
     }
 
@@ -214,12 +232,11 @@ class ParkingOwnerInfoFragment : BaseFragment() {
             }
 
             return OwnerModel(
-                ownerId = "",
                 ownerName = ownerName,
                 gender = gender,
                 dateOfBirth = dob,
                 cnicOrPassport = cnicPassport,
-                profileImageUrl = null,
+                profileImageUrl = imageUri.toString(),
                 email = email,
                 phone = phone,
                 address = address

@@ -25,7 +25,7 @@ object DataProvider {
             listOf(
                 Pair("Manage Owners", listOf(
                     DashboardCard(title = DashboardFields.AddOwner, imageResource = R.drawable.add_person_ic, type = DashboardType.TYPE2.type),
-                    DashboardCard(title = DashboardFields.ViewOwner, imageResource = R.drawable.owners_ic, type = DashboardType.TYPE2.type),
+                    DashboardCard(title = DashboardFields.ViewOwner, imageResource = R.drawable.owner_ic, type = DashboardType.TYPE2.type),
                     DashboardCard(title = DashboardFields.UpdateOwnerInfo, imageResource = R.drawable.update_person_ic, type = DashboardType.TYPE2.type),
                     DashboardCard(title = DashboardFields.RemoveOwner, imageResource = R.drawable.remove_person_ic, type = DashboardType.TYPE2.type),
                 )),

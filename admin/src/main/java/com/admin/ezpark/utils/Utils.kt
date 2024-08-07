@@ -52,7 +52,7 @@ object Utils {
         }
     }
 
-    fun log(level: LogLevel, message: String, tag: String = "EZPark", throwable: Throwable? = null) {
+    fun log(level: LogLevel = LogLevel.DEBUG, message: String, tag: String = "EZPark", throwable: Throwable? = null) {
         when (level) {
             LogLevel.DEBUG -> Log.d(tag, message)
             LogLevel.INFO -> Log.i(tag, message)

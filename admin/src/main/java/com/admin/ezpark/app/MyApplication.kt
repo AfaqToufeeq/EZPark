@@ -5,6 +5,7 @@ import com.admin.ezpark.data.local.sharedpreference.SharedPreferencesManager
 import com.admin.ezpark.utils.IS_DARK_MODE
 import com.admin.ezpark.utils.Utils.mode
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -16,6 +17,11 @@ class MyApplication: Application() {
         super.onCreate()
 
         checkThemeMode()
+        timberInit()
+    }
+
+    private fun timberInit() {
+        Timber.plant(Timber.DebugTree())
     }
 
     private fun checkThemeMode() = mode(sharedPreferencesManager.getBoolean(IS_DARK_MODE))

@@ -38,5 +38,8 @@
     <string name="error_invalid_email">Invalid email address</string>
     <string name="error_invalid_phone">Invalid phone number</string>
     <string name="error_select_gender">Please select a gender</string>
+    <string name="camera">Camera</string>
+    <string name="select">Select</string>
+    <string name="gallery">Gallery</string>
 
 </resources>

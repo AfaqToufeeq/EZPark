@@ -94,6 +94,7 @@ class HomeFragment : BaseFragment() {
 
         when (action) {
             DashboardNavigationAction.NavigateToAddOwner -> findNavController().navigate(R.id.action_homeFragment_to_parkingOwnerInfoFragment)
+            DashboardNavigationAction.NavigateToViewOwner -> findNavController().navigate(R.id.action_homeFragment_to_viewOwnerParkingFragment)
             else -> {}
         }
     }

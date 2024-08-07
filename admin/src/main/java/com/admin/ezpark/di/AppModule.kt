@@ -1,5 +1,6 @@
 package com.admin.ezpark.di
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.admin.ezpark.utils.CoroutineDispatcherProvider
@@ -24,4 +25,10 @@ object AppModule {
     fun provideSharedPreferencesManager(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
     }
+
+    @Provides
+    @Singleton
+    fun provideContext(application: Application): Context {
+        return application.applicationContext}
+
 }

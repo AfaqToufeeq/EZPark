@@ -78,9 +78,13 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
+    //Timber
+    implementation (libs.jakewharton.timber)
+
     // Third party libraries
     implementation (libs.glide)
     implementation (libs.circleimageview)
+    implementation (libs.shimmer)
 
 }
 

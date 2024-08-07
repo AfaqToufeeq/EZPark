@@ -15,6 +15,9 @@
             app:destination="@id/parkingOwnerInfoFragment"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_homeFragment_to_viewOwnerParkingFragment"
+            app:destination="@id/viewOwnerParkingFragment" />
     </fragment>
     <fragment
         android:id="@+id/parkingOwnerInfoFragment"
@@ -27,5 +30,14 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/viewOwnerParkingFragment"
+        android:name="com.admin.ezpark.ui.fragments.ViewOwnerParkingFragment"
+        android:label="fragment_view_owner_parking"
+        tools:layout="@layout/fragment_view_owner_parking" >
+        <action
+            android:id="@+id/action_viewOwnerParkingFragment_to_homeFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 </navigation>

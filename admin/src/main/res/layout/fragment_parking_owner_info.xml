@@ -126,8 +126,10 @@
                         app:layout_constraintEnd_toEndOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dob_EditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="date"
                             android:drawableStart="@drawable/calender_icon"
                             android:drawablePadding="8dp"/>
                     </com.google.android.material.textfield.TextInputLayout>
